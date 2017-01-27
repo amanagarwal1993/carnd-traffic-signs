@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>Traffic_Sign_Classifier2</title>
+<title>Traffic_Sign_Classifier</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13752,11 +13752,21 @@ Tensor(&#34;Flatten/Reshape:0&#34;, shape=(?, 12544), dtype=float32)
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
-<p>My architecture has:</p>
+<p>My architecture is based on the LeNet architecture, but has some small modifications like extra convolution layers.</p>
+<p>Input image: 32x32x1 (normalized and grayscaled)</p>
+<ol>
+<li>Convolution layer + RELU               -&gt; <strong>28x28x32</strong></li>
+<li>Convolution layer + RELU + Max_Pooling -&gt; <strong>14x14x64</strong></li>
+<li>Convolution layer + RELU               -&gt; <strong>14x14x128</strong></li>
+<li>Convolution layer + RELU + Max_Pooling -&gt; <strong>7x7x256</strong></li>
+<li>Fully Connected Layer + RELU           -&gt; <strong>256</strong></li>
+<li>Fully Connected Layer + RELU           -&gt; <strong>128</strong></li>
+<li>Fully Connected Layer + RELU           -&gt; <strong>43</strong></li>
+<li>Dropout Layer                          -&gt; <strong>43</strong>  (<em>Final output</em> )</li>
+</ol>
 <ul>
-<li>4 consecutive convolution layers, each having a Relu at the end, and a Max-pooling function after every 2.
-My convolution layers have filter lengths of 32,64,128,256. This is so that the ConvNet learns to build on top of previously learned patterns.</li>
-<li>3 fully connected layers, each having a Relu after it</li>
+<li>I use gradually increasing convolution filter lengths so that the ConvNet learns to build on top of previously learned patterns. I tried gradually reducing the lengths as well, but it doesn't work nearly as well.</li>
+<li>Regularization using the Relu layer gives the model much needed non-linearity.</li>
 <li>Dropout at the end to prevent overfitting</li>
 </ul>
 
